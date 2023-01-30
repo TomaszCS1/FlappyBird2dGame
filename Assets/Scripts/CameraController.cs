@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 originalPosition;
     private float cameraOffset;
+
     
 
     // Start is called before the first frame update
@@ -21,7 +22,6 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (followTarget != null)
         transform.position =  new Vector3(0,0,cameraOffset) + followTarget.transform.position;
 
 
