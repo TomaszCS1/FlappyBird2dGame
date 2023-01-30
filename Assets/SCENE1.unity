@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b8e0f5f21acfa4dab477431564caf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainWidth: 100
+  TerrainWidth: 42
   TerrainPrefab: {fileID: 1619859203151785819, guid: 068284fb29c760747ae8f2e9bcd8d53c, type: 3}
   m_bird: {fileID: 597871055}
 --- !u!4 &90304946

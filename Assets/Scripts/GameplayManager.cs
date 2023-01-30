@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameplayManager : Singleton<GameplayManager> 
 {
 
-    public float TerrainWidth = 100.0f;
+    public float TerrainWidth = 42.0f;
 
 
     public GameObject TerrainPrefab;
@@ -15,7 +15,9 @@ public class GameplayManager : Singleton<GameplayManager>
 
     private List<GameObject> SpawnedTerrain;
 
-    private float terrainSpawnXLocation; 
+    private float terrainSpawnXLocation;
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -35,21 +37,36 @@ public class GameplayManager : Singleton<GameplayManager>
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("terrainSpawnXLocation:  " + terrainSpawnXLocation + " modulo:  " + terrainSpawnXLocation % TerrainWidth);
-                    terrainSpawnXLocation = (m_bird.transform.position.x + (TerrainWidth * 0.5f));
+       
+        
+        var birdPostion = m_bird.transform.position.x;
+        var lastTerrrainPosition = SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x;
+        var newTerrainPosition = (birdPostion + (TerrainWidth * 0.50f));
 
 
-        //current pos. bird             // center of last spawned terrain 
-        if (m_bird.transform.position.x - SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x >= 0.0f && ((terrainSpawnXLocation % TerrainWidth > 97.0f) || terrainSpawnXLocation % TerrainWidth==0))
+        Debug.Log("(birdPostion - lastTerrrainPosition): " + (birdPostion - lastTerrrainPosition ) + " newTerrainPosition: " +   newTerrainPosition + " modulo + " + newTerrainPosition % TerrainWidth);
+
+           
+        if (birdPostion - lastTerrrainPosition > 0 && newTerrainPosition % TerrainWidth <5)
         {
 
             //instantiates prefab: Terrain positioned on the end of previous prefab 
-            GameObject.Instantiate(TerrainPrefab, new Vector3(terrainSpawnXLocation, 0, 0), Quaternion.identity);
+            GameObject.Instantiate(TerrainPrefab, new Vector3(newTerrainPosition, 0, 0), Quaternion.identity);
 
             SpawnedTerrain.Add(TerrainPrefab);
 
-        }
 
-        if()
+            if (SpawnedTerrain.Count > 0 && birdPostion - SpawnedTerrain[0].transform.position.x > 0)
+            {
+                GameObject.Destroy(SpawnedTerrain[0]);
+
+                SpawnedTerrain.RemoveAt(0);
+
+            }
+
+        }
+                                                    
+        
+
     }
 }
