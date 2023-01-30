@@ -29,7 +29,7 @@ public class GameplayManager : Singleton<GameplayManager>
             SpawnedTerrain.Add(TerrainPrefab);
         }
 
-
+        GameObject.Instantiate(TerrainPrefab, new Vector3(TerrainWidth, 0, 0), Quaternion.identity);
 
 
     }
@@ -39,24 +39,25 @@ public class GameplayManager : Singleton<GameplayManager>
     {
        
         
-        var birdPostion = m_bird.transform.position.x;
+        var birdPosition = m_bird.transform.position.x;
         var lastTerrrainPosition = SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x;
-        var newTerrainPosition = (birdPostion + (TerrainWidth * 0.50f));
+        var newTerrainPosition = (lastTerrrainPosition + (TerrainWidth* 0.5f));
+        GameObject  prefabInstance;
 
-
-        Debug.Log("(birdPostion - lastTerrrainPosition): " + (birdPostion - lastTerrrainPosition ) + " newTerrainPosition: " +   newTerrainPosition + " modulo + " + newTerrainPosition % TerrainWidth);
+        Debug.Log("birdPostion: " + birdPosition + " newTerrainPosition: " + newTerrainPosition );
 
            
-        if (birdPostion - lastTerrrainPosition > 0 && newTerrainPosition % TerrainWidth <5)
+        if ((birdPosition - lastTerrrainPosition ) > 0 /*&& newTerrainPosition % TerrainWidth < 1*/)
         {
 
             //instantiates prefab: Terrain positioned on the end of previous prefab 
-            GameObject.Instantiate(TerrainPrefab, new Vector3(newTerrainPosition, 0, 0), Quaternion.identity);
+            prefabInstance = GameObject.Instantiate(TerrainPrefab, new Vector3(newTerrainPosition, 0, 0), Quaternion.identity);
 
-            SpawnedTerrain.Add(TerrainPrefab);
+            Debug.Log(" Prefab generated ");
+            SpawnedTerrain.Add(prefabInstance);
 
 
-            if (SpawnedTerrain.Count > 0 && birdPostion - SpawnedTerrain[0].transform.position.x > 0)
+            if (SpawnedTerrain.Count > 0 && birdPosition - SpawnedTerrain[0].transform.position.x - TerrainWidth*0.5> 0)
             {
                 GameObject.Destroy(SpawnedTerrain[0]);
 
