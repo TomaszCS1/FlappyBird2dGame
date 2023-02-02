@@ -17,7 +17,8 @@ public class GameplayManager : Singleton<GameplayManager>
 
     private float terrainSpawnXLocation;
 
-    
+    GameObject prefabInstance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +27,12 @@ public class GameplayManager : Singleton<GameplayManager>
 
         if (SpawnedTerrain.Count == 0)
         {
-            SpawnedTerrain.Add(TerrainPrefab);
+
+            prefabInstance = GameObject.Instantiate(TerrainPrefab, new Vector3(TerrainWidth*1.0f, 0, 0), Quaternion.identity);
+           
+            SpawnedTerrain.Add(prefabInstance);
         }
 
-        GameObject.Instantiate(TerrainPrefab, new Vector3(TerrainWidth, 0, 0), Quaternion.identity);
 
 
     }
@@ -42,12 +45,11 @@ public class GameplayManager : Singleton<GameplayManager>
         var birdPosition = m_bird.transform.position.x;
         var lastTerrrainPosition = SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x;
         var newTerrainPosition = (lastTerrrainPosition + (TerrainWidth* 0.5f));
-        GameObject  prefabInstance;
 
         Debug.Log("birdPostion: " + birdPosition + " newTerrainPosition: " + newTerrainPosition );
 
            
-        if ((birdPosition - lastTerrrainPosition ) > 0 /*&& newTerrainPosition % TerrainWidth < 1*/)
+        if ((birdPosition - lastTerrrainPosition ) > 0 && birdPosition > TerrainWidth)
         {
 
             //instantiates prefab: Terrain positioned on the end of previous prefab 
