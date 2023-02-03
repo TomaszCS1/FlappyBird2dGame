@@ -45,17 +45,12 @@ public class GameplayManager : Singleton<GameplayManager>
         var birdPosition = m_bird.transform.position.x;
         var lastTerrrainPosition = SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x;
         var newTerrainPosition = (lastTerrrainPosition + (TerrainWidth* 0.5f));
-
-        Debug.Log("birdPostion: " + birdPosition + " newTerrainPosition: " + newTerrainPosition );
-
            
         if ((birdPosition - lastTerrrainPosition ) > 0 && birdPosition > TerrainWidth)
         {
 
             //instantiates prefab: Terrain positioned on the end of previous prefab 
             prefabInstance = GameObject.Instantiate(TerrainPrefab, new Vector3(newTerrainPosition, 0, 0), Quaternion.identity);
-
-            Debug.Log(" Prefab generated ");
             SpawnedTerrain.Add(prefabInstance);
 
 
