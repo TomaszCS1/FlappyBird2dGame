@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BirdController : MonoBehaviour
 {
     public Rigidbody2D m_rigidBody;
 
-    public float Velocity = 0.010f;
+    public float Velocity = 0.01f;
 
     private Vector3 birdRotation=new Vector3(0,0,30.0f);
 
@@ -64,6 +66,16 @@ public class BirdController : MonoBehaviour
     {
         m_rigidBody.velocity = new Vector2(Velocity, m_rigidBody.velocity.y);
 
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer== LayerMask.NameToLayer("Obstacle"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        }
     }
 
 

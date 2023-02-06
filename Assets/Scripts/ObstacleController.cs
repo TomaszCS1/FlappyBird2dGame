@@ -18,8 +18,7 @@ public class ObstacleController : MonoBehaviour
     public SpriteRenderer UpColumn;
     public SpriteRenderer DownColumn;
     
-
-    
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +42,7 @@ public class ObstacleController : MonoBehaviour
 
     void UpdateObstacleParams()
     {
-        GapHeight = Mathf.Clamp(GapHeight, 5f, 10F);
+        GapHeight = Mathf.Clamp(GapHeight, 7f, 12F);
         GapMidpoint = Mathf.Clamp(GapMidpoint, -3f, 4F);
 
         GapMidpoint = UnityEngine.Random.Range(-3f, 4f);
@@ -61,6 +60,16 @@ public class ObstacleController : MonoBehaviour
         //Position of hole Prefab (parent in Hierarchy):
          transform.position = new Vector3(transform.position.x, GapMidpoint, 0) ;
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bird"))
+        {
+            GameplayManager.Instance.points += 1;
+        }
+    }
+
+
 
 
 }

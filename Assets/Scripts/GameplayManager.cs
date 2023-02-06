@@ -9,7 +9,6 @@ public class GameplayManager : Singleton<GameplayManager>
     float TerrainWidth = 42.0f;
     float obstacleDistance = 20.0f;
 
-
     public GameObject TerrainPrefab;
     public GameObject obstaclePrefab;
 
@@ -24,7 +23,17 @@ public class GameplayManager : Singleton<GameplayManager>
     GameObject prefabObstacleInstance;
 
     private float birdPosition;
-    private float birdLastObstacleDistance;
+
+    public int m_points;
+    private HUDController hUDController;
+
+    public int points
+    {   get { return m_points; }
+        set 
+        { m_points = value;
+          hUDController.UpdatePoints(m_points);
+        }
+    }
 
 
     // Start is called before the first frame update
@@ -47,8 +56,9 @@ public class GameplayManager : Singleton<GameplayManager>
            
             SpawnedObstacle.Add(prefabObstacleInstance);
         }
-      
-       
+
+        hUDController= FindObjectOfType<HUDController>();
+        points= 0;
 
     }
 
