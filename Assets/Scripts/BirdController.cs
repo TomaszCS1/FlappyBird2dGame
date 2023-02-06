@@ -23,7 +23,15 @@ public class BirdController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) )
         {
-            m_rigidBody.AddForce(Vector2.up * 100.0f);
+            m_rigidBody.AddForce(Vector2.up * 30.0f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            //m_rigidBody.AddForce(Vector2.left * 100f);
+            m_rigidBody.transform.position = new Vector3(transform.position.x - 0.5f, transform.position.y, 0).normalized * Time.deltaTime;
+            transform.rotation = Quaternion.Euler(0, 0, 180 * Time.deltaTime * 100);
+            Physics2D.gravity = new Vector2(0, 10f);
         }
 
 
@@ -44,7 +52,7 @@ public class BirdController : MonoBehaviour
         // mechanics of falling down
         if ( m_rigidBody.transform.position.y < 0)
         {
-            Physics2D.gravity = new Vector2(0, -20f);
+            Physics2D.gravity = new Vector2(0, -25f);
         }
         else
             Physics2D.gravity = new Vector2(0, -9.8f);

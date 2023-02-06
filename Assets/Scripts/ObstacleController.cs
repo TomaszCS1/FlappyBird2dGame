@@ -29,6 +29,7 @@ public class ObstacleController : MonoBehaviour
         DownColumn = transform.Find("DownColumn").gameObject.GetComponent<SpriteRenderer>();
       
         UpColumn.size= new Vector2(5, 22);
+        DownColumn.size= new Vector2(5, 22);
 
         UpdateObstacleParams();
     }
@@ -45,16 +46,20 @@ public class ObstacleController : MonoBehaviour
         GapHeight = Mathf.Clamp(GapHeight, 5f, 10F);
         GapMidpoint = Mathf.Clamp(GapMidpoint, -3f, 4F);
 
-        GapMidpoint = UnityEngine.Random.Range(-3f, 3f);
+        GapMidpoint = UnityEngine.Random.Range(-3f, 4f);
         GapHeight = UnityEngine.Random.Range(5f, 9f);
 
-        transform.position = new Vector3(0, 1, 0) * GapMidpoint;
+        var YPositionUpperColumn = UpColumn.transform.position;
+        var YPositionLowerColumn = DownColumn.transform.position;
+       
 
-        UpColumn.transform.position = new Vector3(0, 1, 0) * (UpColumn.size.y / 2 + GapMidpoint + GapHeight / 2);
-        Debug.Log(" UpColumn.size.y= " + UpColumn.size.y + " GapMidpoint: " + GapMidpoint + "GapHeight/2: " + GapHeight / 2);
 
-        DownColumn.transform.position = new Vector3(0, 1, 0) * (GapMidpoint - GapHeight / 2 - DownColumn.size.y / 2);
+        YPositionUpperColumn = new Vector3(0, 1, 0) * (UpColumn.size.y / 2 + GapMidpoint + GapHeight / 2);
 
+        YPositionLowerColumn = new Vector3(0, 1, 0) * (GapMidpoint - GapHeight / 2 - DownColumn.size.y / 2);
+
+        //Position of hole Prefab (parent in Hierarchy):
+         transform.position = new Vector3(transform.position.x, GapMidpoint, 0) ;
     }
 
 

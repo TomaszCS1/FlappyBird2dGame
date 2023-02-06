@@ -7,7 +7,7 @@ public class GameplayManager : Singleton<GameplayManager>
 {
 
     float TerrainWidth = 42.0f;
-    float obstacleDistance = 12.0f;
+    float obstacleDistance = 20.0f;
 
 
     public GameObject TerrainPrefab;
@@ -47,8 +47,7 @@ public class GameplayManager : Singleton<GameplayManager>
            
             SpawnedObstacle.Add(prefabObstacleInstance);
         }
-         birdPosition = m_bird.transform.position.x;
-         birdLastObstacleDistance = birdPosition;
+      
        
 
     }
@@ -56,13 +55,14 @@ public class GameplayManager : Singleton<GameplayManager>
     // Update is called once per frame
     void Update()
     {
-               
-        
+        birdPosition = m_bird.transform.position.x;
+        //______________________________________________________TERRAIN_________________________________________________________________________
+
         var lastTerrrainPosition = SpawnedTerrain[SpawnedTerrain.Count - 1].transform.position.x;
         var newTerrainPosition = (lastTerrrainPosition + (TerrainWidth* 0.5f));
            
           if ((birdPosition - lastTerrrainPosition ) > 0 && birdPosition > TerrainWidth)
-        {
+          {
 
             //instantiates prefab: Terrain positioned on the end of previous prefab 
             prefabTerrainInstance = GameObject.Instantiate(TerrainPrefab, new Vector3(newTerrainPosition, 0, 0), Quaternion.identity);
@@ -77,19 +77,19 @@ public class GameplayManager : Singleton<GameplayManager>
 
             }
 
-        }
+          }
         
+        //______________________________________________________OBSTACLE_________________________________________________________________________
+
         var lastObstaclePosition = SpawnedObstacle[SpawnedObstacle.Count- 1].transform.position.x;
         var newObstaclePosition = lastObstaclePosition + obstacleDistance;
-        
-        birdLastObstacleDistance =  lastObstaclePosition - birdPosition;
 
-        if (birdLastObstacleDistance>obstacleDistance
-            )
+        if (birdPosition + 2*obstacleDistance >lastObstaclePosition )
         {
             
             //instantiates prefab: Terrain positioned on the end of previous prefab 
              prefabObstacleInstance = GameObject.Instantiate(obstaclePrefab, new Vector3(newObstaclePosition , 0, 0), Quaternion.identity);
+
             SpawnedObstacle.Add(prefabObstacleInstance);
 
 
@@ -102,8 +102,6 @@ public class GameplayManager : Singleton<GameplayManager>
             }
 
         }
-                                                    
-        
 
     }
 }
