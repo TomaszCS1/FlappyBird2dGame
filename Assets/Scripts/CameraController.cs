@@ -9,7 +9,12 @@ public class CameraController : MonoBehaviour
     private Vector3 originalPosition;
     private float cameraOffset;
 
-    
+    public float shakeDuration = 3f;
+    public float shakeMagnitude = 0.9f;
+    public float dampingSpeed = 0.2f;
+
+    private Vector3 initialPosition;
+    private float currentShakeDuration;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +22,10 @@ public class CameraController : MonoBehaviour
         followTarget = FindObjectOfType<BirdController>();    
         originalPosition= transform.position;
         cameraOffset = this.transform.localPosition.z;
+
+        currentShakeDuration = shakeDuration;
+        initialPosition = transform.localPosition;
+
     }
 
 
@@ -27,9 +36,15 @@ public class CameraController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CameraShake()
     {
-        
+        while(currentShakeDuration > 0)
+        {
+            transform.localPosition = /*initialPosition +*/ Random.insideUnitSphere * shakeMagnitude;
+
+            currentShakeDuration -= Time.deltaTime * dampingSpeed;
+        }
+        currentShakeDuration = shakeDuration;
     }
+
 }

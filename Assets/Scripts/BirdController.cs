@@ -12,12 +12,14 @@ public class BirdController : MonoBehaviour
 
     private Vector3 birdRotation=new Vector3(0,0,30.0f);
 
+    private CameraController m_cameraController;
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody2D>();
-
+        m_cameraController= FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
@@ -71,12 +73,17 @@ public class BirdController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer== LayerMask.NameToLayer("Obstacle"))
+         if (collision.collider.gameObject.layer== LayerMask.NameToLayer("Obstacle"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
 
+
+             if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Terrain"))
+        {
+            m_cameraController.CameraShake();
         }
     }
 
-
+   
 }

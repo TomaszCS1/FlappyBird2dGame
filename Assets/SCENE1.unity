@@ -938,6 +938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225d85380f018c74d8405ed78fa3ec4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeDuration: 0.3
+  shakeMagnitude: 0.7
+  dampingSpeed: 1
 --- !u!1 &2047570563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,6 +1080,14 @@ PrefabInstance:
     - target: {fileID: 1619859203151785819, guid: 068284fb29c760747ae8f2e9bcd8d53c, type: 3}
       propertyPath: m_Name
       value: 'Terrain '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619859203151785819, guid: 068284fb29c760747ae8f2e9bcd8d53c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140164976004949209, guid: 068284fb29c760747ae8f2e9bcd8d53c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

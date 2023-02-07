@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619859203151785818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'Terrain '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 1357770820366426353}
   - component: {fileID: 6208415086036391524}
   - component: {fileID: 7066053022438301728}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GrassSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
